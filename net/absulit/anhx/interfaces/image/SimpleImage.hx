@@ -17,8 +17,8 @@
    */
 
 package net.absulit.anhx.interfaces.image;
+import net.absulit.anhx.interfaces.Destroy;
 import nme.display.Bitmap;
-import nme.display.DisplayObject;
 import nme.display.DisplayObject;
 import nme.display.Loader;
 import nme.display.MovieClip;
@@ -32,7 +32,7 @@ import nme.net.URLRequest;
  * @author Sebastian Sanabria Diaz
  */
 
-class SimpleImage extends MovieClip {
+class SimpleImage extends MovieClip, implements Destroy {
 	private var _path:String;
 	private var _smoth:Bool;
 	private var _loader:Loader;
@@ -43,9 +43,11 @@ class SimpleImage extends MovieClip {
 		super();
 		init();
 	}
-	
+
 	private function init():Void {
-		
+		_path = "";
+		_smooth = false;
+		_loadComplete = false;
 	}
 	
 	private function get_path():String {
@@ -128,5 +130,13 @@ class SimpleImage extends MovieClip {
 	}
 	
 	public var smoth(get_smoth, set_smoth):Bool;
+	
+	/* INTERFACE net.absulit.anhx.interfaces.Destroy */
+	
+	public function destroy():Void {
+		_loader = null;
+		_path = null;
+		_content = null;	
+	}
 	
 }
